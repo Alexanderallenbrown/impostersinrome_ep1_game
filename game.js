@@ -7,8 +7,8 @@ var ghost;
 var bg;
 var frame;
 //the scene is twice the size of the canvas
-var SCENE_W = 1600;
-var SCENE_H = 800;
+var SCENE_W = 800;
+var SCENE_H = 400;
 
 
 function setup() {
@@ -38,23 +38,25 @@ function setup() {
 }
 
 function draw() {
-  background(0, 0, 0);
+  background(123, 63, 0);
 
   //mouse trailer, the speed is inversely proportional to the mouse distance
   ghost.velocity.x = (camera.mouseX-ghost.position.x)/20;
   ghost.velocity.y = (camera.mouseY-ghost.position.y)/20;
+  camera.zoom=1;
+  //camera.off();
 
   //a camera is created automatically at the beginning
 
   //.5 zoom is zooming out (50% of the normal size)
-  if(mouseIsPressed)
-    camera.zoom = 0.5;
-  else
-    camera.zoom = 1;
+//   if(mouseIsPressed)
+//     camera.zoom = 0.5;
+//   else
+//     camera.zoom = 1;
 
   //set the camera position to the ghost position
-  camera.position.x = ghost.position.x;
-  camera.position.y = ghost.position.y;
+//   camera.position.x = ghost.position.x;
+//   camera.position.y = ghost.position.y;
 
   //limit the ghost movements
   if(ghost.position.x < 0)
@@ -73,12 +75,41 @@ function draw() {
   //shadow using p5 drawing
   noStroke();
   if(ghost.overlap(bg)){
-      fill(255,255,255,100)
+      fill(0,255,0,100);
   }
   else{
     fill(200, 200, 0, 80);
   }
-  //shadow
+
+  
+//     //// FLASHSLIGHT
+//   var lightRadius = 10;
+//   // We must also call loadPixels() on the PImage since we are going to read its pixels.
+//   loadPixels();
+//   for (var y = 0; y < height; y++ ) {
+//     for (var x = 0; x < width; x++ ) {
+//       var loc = (x + y * width) * 4;
+//       // The functions red(), green(), and blue() pull out the three color components from a pixel.
+//       var r = px[loc   ]; 
+//       var g = px[loc + 1];
+//       var b = px[loc + 2];
+
+//       // Calculate an amount to change brightness
+//       // based on proximity to ghostboi
+//       var distance = dist(x, y, ghost.position.x, ghost.position.y);
+//       var adjustBrightness = map(distance, 0, lightRadius, 1, 0);
+
+      
+//       // Set the display pixel to the image pixel
+//       pixels[loc    ] *= adjustBrightness;
+//       pixels[loc + 1] *= adjustBrightness;
+//       pixels[loc + 2] *= adjustBrightness;
+//       pixels[loc + 3] = 255; // Always have to set alpha
+//     }
+//   }
+//   updatePixels();
+  
+    //shadow
   ellipse(ghost.position.x, ghost.position.y+90, 80, 30);
   //character on the top
   drawSprite(ghost);
@@ -86,6 +117,11 @@ function draw() {
   //I can turn on and off the camera at any point to restore
   //the normal drawing coordinates, the frame will be drawn at
   //the absolute 0,0 (try to see what happens if you don't turn it off
-  camera.off();
+  
   //image(frame, 0, 0);
+  
+
+  
+  
+  
 }

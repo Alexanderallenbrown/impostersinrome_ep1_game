@@ -65,7 +65,7 @@ function setup() {
   for(var i=0; i<numClods; i++)
   {
     //create a sprite and add the 3 animations
-    var rock = createSprite(random(0, width), random(0, height));
+    var rock = createSprite(random(100, width-100), random(100, height-100));
     //cycles through rocks 0 1 2
     rock.addAnimation('normal', 'assets/dirtclod.png');
     if (specialClods.includes(i)){
@@ -109,7 +109,7 @@ function draw() {
     //console.log('moving')
     //console.log(actor.velocity.x,actor.velocity.y)
   }
-  camera.zoom=3;
+  camera.zoom=2;
 
   if(mouseIsPressed){
     // if (!actor.overlap(bg,processAudio)){errorSound.play();}

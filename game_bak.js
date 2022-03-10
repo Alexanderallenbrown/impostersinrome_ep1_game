@@ -1,3 +1,8 @@
+//virtual camera
+//move the mouse around
+//the sprite follows the mouse but appears at the center of the sketch
+//because the camera is following it
+
 var actor;
 var bg;
 var frame;
@@ -30,9 +35,7 @@ function preload() {
 
 }
 
-// function setup() {
-//   createCanvas(400, 400);
-// }
+
 
 
 function setup() {
@@ -58,11 +61,11 @@ function setup() {
   let numClods = 8;
   // specialClods = Array.from({length: 4}, () => Math.floor(Math.random() * numClods));
 
-  var specialClods = [1, 7,2,4];
-  // while(specialClods.length < numClods){
-  //     var r = Math.floor(Math.random() * 5);
-  //     if((specialClods.indexOf(r) === -1)&& (r<5)) specialClods.push(r);
-  // }
+  var specialClods = [];
+  while(specialClods.length < numClods){
+      var r = Math.floor(Math.random() * 5);
+      if((specialClods.indexOf(r) === -1)&& (r<5)) specialClods.push(r);
+  }
 
   console.log("special clods: "+str(specialClods))
 
@@ -84,10 +87,6 @@ function setup() {
 
   //frame = loadImage('assets/frame.png');
 }
-
-// function draw() {
-//   background(220);
-// }
 
 
 function draw() {
@@ -189,3 +188,4 @@ function processAudio(sprite1,sprite2){
 
 }
   
+

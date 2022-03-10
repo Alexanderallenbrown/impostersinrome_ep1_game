@@ -13,6 +13,8 @@ let track2;
 let track3;
 let track4;
 
+var gameStart = false;
+
 var tracks;
 var numTracks;
 
@@ -20,6 +22,10 @@ var unCoveredTracks = [];
 
 var elapsedTime = 0;
 var oldTime = 0;
+
+var uniqueRelease = false;
+var oldHold = false;
+var holdNow = false;
 
 function preload() {
   soundFormats('mp3');
@@ -59,8 +65,10 @@ function setup() {
   stand.offY = 0;
 
   move = actor.addAnimation('moving','assets/Ben_stand.png','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png','assets/Ben_Walk_3.png','assets/Ben_Walk_4.png','assets/Ben_Walk_5.png');
-  dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png');
+  dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png','assets/Ben_Stand.png');
   dig.life = 30;
+  dig.looping = true;
+  dig.frameDelay = 8;
   bg = new Group();
 
   let numClods = 8;
@@ -103,6 +111,10 @@ function setup() {
 
 
 function draw() {
+  holdNow = mouseIsPressed;
+  uniqueRelease = !holdNow&&oldHold;
+  oldHold = holdNow;
+
 
   if(unCoveredTracks.length<4){
     elapsedTime = (millis()-oldTime)/1000.0
@@ -112,8 +124,14 @@ function draw() {
   
 
   //mouse trailer, the speed is inversely proportional to the mouse distance
-  actor.velocity.x = (camera.mouseX-actor.position.x)/60;
-  actor.velocity.y = (camera.mouseY-actor.position.y)/60;
+  if(holdNow){
+    actor.velocity.x = (camera.mouseX-actor.position.x)/60;
+    actor.velocity.y = (camera.mouseY-actor.position.y)/60;
+  }
+  else{
+    actor.velocity.x = 0;
+    actor.velocity.y = 0;
+  }
 
   movethresh = .1;
 
@@ -124,22 +142,33 @@ function draw() {
     actor.velocity.y=0
   }
 
-  if(mouseIsPressed){
+  if(uniqueRelease){
+    console.log(uniqueRelease)
     actor.changeAnimation('digging')
+    dig.rewind();
+    dig.play();
     // if (!actor.overlap(bg,processAudio)){errorSound.play();}
     stop();
     actor.overlap(bg,processAudio)
   }
 
-  else if((abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
+  else if(holdNow&&(abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
     actor.changeAnimation('floating');
     //console.log('floating')
     //flip horizontally
   }
-  else{
+  else if(holdNow){
     actor.changeAnimation('moving');
     //console.log('moving')
     //console.log(actor.velocity.x,actor.velocity.y)
+  }
+  else{
+    //console.log("dig: "+str(dig.getFrame()))
+    if((dig.getFrame()==4)){
+      dig.stop();
+      actor.changeAnimation('floating')
+      //console.log("time to float")
+    }
   }
   camera.zoom=2;
 

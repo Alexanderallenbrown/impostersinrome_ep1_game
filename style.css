@@ -1,0 +1,34 @@
+body {
+  /*padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;*/
+  align-items: center;
+  background: black;
+}
+p{
+  font-family: Georgia, "Times New Roman",Times,serif;
+  font-size: 18px;
+  text-align: center;
+  color: grey;
+}
+h1{
+  font-family: Georgia, "Times New Roman",Times,serif;
+  font-size: 32px;
+  text-align: center;
+  color: grey;
+}
+
+canvas {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}

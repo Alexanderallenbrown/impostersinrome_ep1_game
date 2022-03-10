@@ -18,6 +18,9 @@ var numTracks;
 
 var unCoveredTracks = [];
 
+var elapsedTime = 0;
+var oldTime = 0;
+
 function preload() {
   soundFormats('mp3');
   console.log("loading sounds")
@@ -43,8 +46,8 @@ function setup() {
   numTracks = tracks.length;
 
 
-  createCanvas(800, 400);
-
+  var canvas = createCanvas(800, 400);
+  canvas.parent("sketch-holder");
   //create a sprite and add the 3 animations
   actor = createSprite(400, 200, 32, 32);
 
@@ -55,7 +58,7 @@ function setup() {
   var stand = actor.addAnimation('floating','assets/Ben_Stand.png');
   stand.offY = 0;
 
-  move = actor.addAnimation('moving','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png');
+  move = actor.addAnimation('moving','assets/Ben_stand.png','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png','assets/Ben_Walk_3.png','assets/Ben_Walk_4.png','assets/Ben_Walk_5.png');
   dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png');
   dig.life = 30;
   bg = new Group();
@@ -91,6 +94,7 @@ function setup() {
   }
 
   //frame = loadImage('assets/frame.png');
+  oldTime = millis();
 }
 
 // function draw() {
@@ -100,8 +104,12 @@ function setup() {
 
 function draw() {
 
-  background(123, 63, 0);
+  if(unCoveredTracks.length<4){
+    elapsedTime = (millis()-oldTime)/1000.0
+  }
 
+  background(123, 63, 0);
+  
 
   //mouse trailer, the speed is inversely proportional to the mouse distance
   actor.velocity.x = (camera.mouseX-actor.position.x)/60;
@@ -157,17 +165,17 @@ function draw() {
   //shadow using p5 drawing
   noStroke();
   if(actor.overlap(bg,checkClodNumber)){
-      fill(0,255,0,100);
+      fill(100,100,0,100);
   }
   else{
     fill(200, 200, 0, 80);
   }
   
   //shadow
-  ellipse(actor.position.x, actor.position.y+16, 32, 10);
+  ellipse(actor.position.x, actor.position.y+16, 20, 6);
 
   thickn = 20;
-  lightrad = 200;
+  lightrad = 300;
 
   for(let r = 0;r<width;r+=thickn){
     let adjustBrightness = map(r, 0, lightrad, 0, 255);
@@ -194,7 +202,17 @@ function draw() {
 
 
   //character on the top
-  drawSprite(actor);  
+  drawSprite(actor); 
+  strokeWeight(1);
+  fill(128);
+  stroke(128); 
+  textAlign(CENTER,CENTER)
+  if(unCoveredTracks.length>=4){
+    text("You found all the stems! time: "+elapsedTime.toFixed(2),actor.position.x,actor.position.y-75)
+  }
+  else{
+    text('time: '+elapsedTime.toFixed(2),actor.position.x,actor.position.y-75)
+  } 
   
   
 }

@@ -48,11 +48,16 @@ function setup() {
   //create a sprite and add the 3 animations
   actor = createSprite(400, 200, 32, 32);
 
-  var myAnimation = actor.addAnimation('floating', 'assets/stickman_walk_4.png');
-  myAnimation.offY = 0;
+  // ben_sheet = loadSpriteSheet('assets/Ben_Dig.png', 40, 40, 3);
+  // ben_walk_animation = loadAnimation(ben_sheet);
+  // ben_dig_animation = loadAnimation(ben_sheet);
 
-  actor.addAnimation('moving','assets/stickman_walk_1.png', 'assets/stickman_walk_4.png');
+  var stand = actor.addAnimation('floating','assets/Ben_Stand.png');
+  stand.offY = 0;
 
+  move = actor.addAnimation('moving','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png');
+  dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png');
+  dig.life = 30;
   bg = new Group();
 
   let numClods = 8;
@@ -108,7 +113,14 @@ function draw() {
     actor.velocity.y=0
   }
 
-  if((abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
+  if(mouseIsPressed){
+    actor.changeAnimation('digging')
+    // if (!actor.overlap(bg,processAudio)){errorSound.play();}
+    stop();
+    actor.overlap(bg,processAudio)
+  }
+
+  else if((abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
     actor.changeAnimation('floating');
     //console.log('floating')
     //flip horizontally
@@ -120,11 +132,6 @@ function draw() {
   }
   camera.zoom=2;
 
-  if(mouseIsPressed){
-    // if (!actor.overlap(bg,processAudio)){errorSound.play();}
-    stop();
-    actor.overlap(bg,processAudio)
-  }
 
   //set the camera position to the actor position
   camera.position.x = actor.position.x;

@@ -64,7 +64,7 @@ function setup() {
   var stand = actor.addAnimation('floating','assets/Ben_Stand.png');
   stand.offY = 0;
 
-  move = actor.addAnimation('moving','assets/Ben_stand.png','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png','assets/Ben_Walk_3.png','assets/Ben_Walk_4.png','assets/Ben_Walk_5.png');
+  move = actor.addAnimation('moving','assets/Ben_Stand.png','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png','assets/Ben_Walk_3.png','assets/Ben_Walk_4.png','assets/Ben_Walk_5.png');
   dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png','assets/Ben_Stand.png');
   dig.life = 30;
   dig.looping = true;

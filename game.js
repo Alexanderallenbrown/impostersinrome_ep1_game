@@ -83,6 +83,9 @@ function setup() {
       rock.trackIndex=specialClods.indexOf(i);
       
     }
+    else{
+      rock.trackIndex=-1;
+    }
     rock.clodNumber = i;
     bg.add(rock);
   }
@@ -179,7 +182,7 @@ function processAudio(sprite1,sprite2){
   }
   errorSound.stop();
 
-  if(sprite2.trackIndex>0){
+  if(sprite2.trackIndex>=0){
     if (!unCoveredTracks.includes(sprite2.trackIndex)){
       unCoveredTracks.push(sprite2.trackIndex);
       console.log(unCoveredTracks)

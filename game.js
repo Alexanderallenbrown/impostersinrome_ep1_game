@@ -165,6 +165,34 @@ function draw() {
   
   //shadow
   ellipse(actor.position.x, actor.position.y+16, 32, 10);
+
+  thickn = 20;
+  lightrad = 200;
+
+  for(let r = 0;r<width;r+=thickn){
+    let adjustBrightness = map(r, 0, lightrad, 0, 255);
+    noFill();
+    stroke(color(0,0,0,adjustBrightness));
+    strokeWeight(thickn);
+    ellipse(actor.position.x,actor.position.y,r,r);
+  }
+
+  // var dt = .2;
+  // var R =20;
+  // lightrad = 200;
+
+
+  // for(let r=0;r<width/3;r+=R){
+
+  //   let adjustBrightness = map(r, 0, lightrad, 0, 255);
+  //   for(t = 0;t<2*3.14;t+=dt){
+  //     noStroke();
+  //     fill(color(0,0,0,adjustBrightness));
+  //     ellipse(actor.position.x+r*cos(t),actor.position.y+r*sin(t),R+r*dt,R+r*dt);
+  //   }
+  // }
+
+
   //character on the top
   drawSprite(actor);  
   

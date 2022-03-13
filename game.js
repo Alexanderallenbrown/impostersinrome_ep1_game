@@ -1,6 +1,7 @@
 var actor;
 var bg;
 var frame;
+var rocco;
 //the scene is twice the size of the canvas
 var SCENE_W = 800;
 var SCENE_H = 400;
@@ -35,6 +36,8 @@ function preload() {
   track2 = loadSound('assets/Sounds/WIF/track2.mp3');
   track3 = loadSound('assets/Sounds/WIF/track3.mp3');
   track4 = loadSound('assets/Sounds/WIF/track4.mp3');
+
+  roccosound = loadSound('assets/Sounds/dog_bark.wav');
   console.log("sounds loaded")
 
 }
@@ -56,6 +59,7 @@ function setup() {
   canvas.parent("sketch-holder");
   //create a sprite and add the 3 animations
   actor = createSprite(400, 200, 32, 32);
+  actorfeet = createSprite(400,200,32,4);//create 'feet'
 
   // ben_sheet = loadSpriteSheet('assets/Ben_Dig.png', 40, 40, 3);
   // ben_walk_animation = loadAnimation(ben_sheet);
@@ -69,6 +73,15 @@ function setup() {
   dig.life = 30;
   dig.looping = true;
   dig.frameDelay = 8;
+
+  //Rocco
+  rocco = createSprite(random(100,SCENE_W-100),random(100,SCENE_H-100),32,32)
+  roccoanim = loadSpriteSheet('assets/Dirt/Rocco.png',32,32,3)
+  rocco.roccoanim = rocco.addAnimation('normal',roccoanim)
+  rocco.roccoanim.frameDelay=15;
+
+
+  ////group for the dirt clods
   bg = new Group();
 
   let numClods = 8;
@@ -155,6 +168,7 @@ function draw() {
     actor.velocity.y = 0;
   }
 
+
   movethresh = .1;
 
   if(abs(actor.velocity.x)<movethresh){
@@ -164,6 +178,11 @@ function draw() {
     actor.velocity.y=0
   }
 
+
+  //move actor feet with actor
+  actorfeet.position.x=actor.position.x;
+  actorfeet.position.y=actor.position.y+28;
+
   if(uniqueRelease){
     console.log(uniqueRelease)
     actor.changeAnimation('digging')
@@ -171,7 +190,13 @@ function draw() {
     dig.play();
     // if (!actor.overlap(bg,processAudio)){errorSound.play();}
     stop();
-    actor.overlap(bg,processAudio)
+    actorfeet.overlap(bg,processAudio)
+    console.log("rocco: "+str(actor.overlap(rocco)))
+
+    if(actor.overlap(rocco)){
+      roccosound.play();
+      console.log("playing bark")
+    }
   }
 
   else if(holdNow&&(abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
@@ -213,15 +238,19 @@ function draw() {
   //rocks first
   drawSprites(bg);
   drawSprites(flowerg);
+  // drawSprites(cactusg);
 
   //shadow using p5 drawing
   noStroke();
-  if(actor.overlap(bg,checkClodNumber)){
+  if(actorfeet.overlap(bg,checkClodNumber)){
       fill(100,100,0,100);
   }
   else{
     fill(200, 200, 0, 80);
   }
+
+  //draw rocco!
+  drawSprite(rocco);
   
   //shadow
   ellipse(actor.position.x, actor.position.y+16, 20, 6);
@@ -254,6 +283,7 @@ function draw() {
 
 
   //character on the top
+  
   drawSprite(actor); 
   strokeWeight(1);
   fill(128);

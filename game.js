@@ -37,7 +37,7 @@ function preload() {
   track3 = loadSound('assets/sounds/WIF/track3.mp3');
   track4 = loadSound('assets/sounds/WIF/track4.mp3');
 
-  roccosound = loadSound('assets/Sounds/dog_bark.wav');
+  roccosound = loadSound('assets/sounds/dog_bark.wav');
   console.log("sounds loaded")
 
 }

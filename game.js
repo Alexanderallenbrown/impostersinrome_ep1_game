@@ -31,11 +31,11 @@ var holdNow = false;
 function preload() {
   soundFormats('mp3');
   console.log("loading sounds")
-  errorSound = loadSound('assets/Sounds/error.mp3');
-  track1 = loadSound('assets/Sounds/WIF/track1.mp3');
-  track2 = loadSound('assets/Sounds/WIF/track2.mp3');
-  track3 = loadSound('assets/Sounds/WIF/track3.mp3');
-  track4 = loadSound('assets/Sounds/WIF/track4.mp3');
+  errorSound = loadSound('assets/sounds/error.mp3');
+  track1 = loadSound('assets/sounds/WIF/track1.mp3');
+  track2 = loadSound('assets/sounds/WIF/track2.mp3');
+  track3 = loadSound('assets/sounds/WIF/track3.mp3');
+  track4 = loadSound('assets/sounds/WIF/track4.mp3');
 
   roccosound = loadSound('assets/Sounds/dog_bark.wav');
   console.log("sounds loaded")

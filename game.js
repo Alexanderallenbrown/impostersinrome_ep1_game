@@ -30,11 +30,11 @@ var holdNow = false;
 function preload() {
   soundFormats('mp3');
   console.log("loading sounds")
-  errorSound = loadSound('assets/error.mp3');
-  track1 = loadSound('assets/track1.mp3');
-  track2 = loadSound('assets/track2.mp3');
-  track3 = loadSound('assets/track3.mp3');
-  track4 = loadSound('assets/track4.mp3');
+  errorSound = loadSound('assets/Sounds/error.mp3');
+  track1 = loadSound('assets/Sounds/WIF/track1.mp3');
+  track2 = loadSound('assets/Sounds/WIF/track2.mp3');
+  track3 = loadSound('assets/Sounds/WIF/track3.mp3');
+  track4 = loadSound('assets/Sounds/WIF/track4.mp3');
   console.log("sounds loaded")
 
 }
@@ -61,11 +61,11 @@ function setup() {
   // ben_walk_animation = loadAnimation(ben_sheet);
   // ben_dig_animation = loadAnimation(ben_sheet);
 
-  var stand = actor.addAnimation('floating','assets/Ben_Stand.png');
+  var stand = actor.addAnimation('floating','assets/Ben/Ben_Stand.png');
   stand.offY = 0;
 
-  move = actor.addAnimation('moving','assets/Ben_Stand.png','assets/Ben_Walk_1.png','assets/Ben_Walk_2.png','assets/Ben_Walk_3.png','assets/Ben_Walk_4.png','assets/Ben_Walk_5.png');
-  dig = actor.addAnimation('digging','assets/Ben_Stand.png','assets/Ben_Dig_1.png','assets/Ben_Dig_2.png','assets/Ben_Dig_3.png','assets/Ben_Stand.png');
+  move = actor.addAnimation('moving','assets/Ben/Ben_Stand.png','assets/Ben/Ben_Walk_1.png','assets/Ben/Ben_Walk_2.png','assets/Ben/Ben_Walk_3.png','assets/Ben/Ben_Walk_4.png','assets/Ben/Ben_Walk_5.png');
+  dig = actor.addAnimation('digging','assets/Ben/Ben_Stand.png','assets/Ben/Ben_Dig_1.png','assets/Ben/Ben_Dig_2.png','assets/Ben/Ben_Dig_3.png','assets/Ben/Ben_Stand.png');
   dig.life = 30;
   dig.looping = true;
   dig.frameDelay = 8;
@@ -88,7 +88,7 @@ function setup() {
     //create a sprite and add the 3 animations
     var rock = createSprite(random(100, width-100), random(100, height-100));
     //cycles through rocks 0 1 2
-    rock.addAnimation('normal', 'assets/dirtclod.png');
+    rock.addAnimation('normal', 'assets/Dirt/dirtclod.png');
     if (specialClods.includes(i)){
       console.log("adding track "+str(specialClods.indexOf(i))+" to clod "+str(i))
       rock.trackIndex=specialClods.indexOf(i);
@@ -99,6 +99,19 @@ function setup() {
     }
     rock.clodNumber = i;
     bg.add(rock);
+  }
+
+  flowerg = new Group();
+  floweranim = loadSpriteSheet('assets/Dirt/Flowers.png',32,32,2)
+  //create some background for visual reference
+  for(var i=0; i<2*numClods; i++)
+  {
+    //create a sprite and add the 3 animations
+    var flower = createSprite(random(100, width-100), random(100, height-100));
+    flower.frameDelay=32
+    //cycles through rocks 0 1 2
+    flower.addAnimation('normal',floweranim);
+    flowerg.add(flower);
   }
 
   //frame = loadImage('assets/frame.png');
@@ -190,6 +203,7 @@ function draw() {
   //draw the scene
   //rocks first
   drawSprites(bg);
+  drawSprites(flowerg);
 
   //shadow using p5 drawing
   noStroke();

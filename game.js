@@ -82,13 +82,21 @@ function setup() {
 
   console.log("special clods: "+str(specialClods))
 
+  //dirt flying
+  dirtanim = loadSpriteSheet('assets/Dirt/dirtclod_ellipse.png',32,32,6);
+  dirtanim.looping=false;
+
   //create some background for visual reference
   for(var i=0; i<numClods; i++)
   {
     //create a sprite and add the 3 animations
     var rock = createSprite(random(100, width-100), random(100, height-100));
     //cycles through rocks 0 1 2
-    rock.addAnimation('normal', 'assets/Dirt/dirtclod.png');
+    rock.addAnimation('normal', 'assets/Dirt/dirtclod_ellipse_static.png');
+    rock.dirtdig = rock.addAnimation('digging',dirtanim)
+    rock.dirtdig.looping = false;
+
+
     if (specialClods.includes(i)){
       console.log("adding track "+str(specialClods.indexOf(i))+" to clod "+str(i))
       rock.trackIndex=specialClods.indexOf(i);
@@ -108,9 +116,10 @@ function setup() {
   {
     //create a sprite and add the 3 animations
     var flower = createSprite(random(100, width-100), random(100, height-100));
-    flower.frameDelay=32
+    floweranim.frameDelay=32
     //cycles through rocks 0 1 2
-    flower.addAnimation('normal',floweranim);
+    flower.flowerwave = flower.addAnimation('normal',floweranim);
+    flower.flowerwave.frameDelay=30
     flowerg.add(flower);
   }
 
@@ -265,6 +274,8 @@ function checkClodNumber(sprite1,sprite2){
 }
 
 function processAudio(sprite1,sprite2){
+  sprite2.changeAnimation('digging')
+  sprite2.dirtdig.rewind();
   //first stop all sounds
   for(let k =0;k<numTracks;k++){
     tracks[k].stop();

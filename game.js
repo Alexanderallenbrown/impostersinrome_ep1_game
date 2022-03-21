@@ -39,7 +39,7 @@ var oldHold = false;
 var holdNow = false;
 
 function preload() {
-  soundFormats('mp3');
+  soundFormats('mp3','wav');
   console.log("loading sounds")
   errorSound = loadSound('assets/sounds/error.mp3');
   track1 = loadSound('assets/sounds/WIF/track1.mp3');

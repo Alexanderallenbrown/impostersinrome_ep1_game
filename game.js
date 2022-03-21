@@ -310,7 +310,7 @@ function doGameStarted(){
   }
 
   if (framenum<10){
-    actor.changeAnimation('floating);')
+    actor.changeAnimation('floating')
   }
 
   camera.zoom=2;

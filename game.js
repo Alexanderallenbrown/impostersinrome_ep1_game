@@ -101,6 +101,7 @@ function setup() {
   actorfeet = createSprite(400,200,32,4);//create 'feet'
 
   ben.onMousePressed = function(){
+  stand = actor.addAnimation('floating',standBen);
   move = actor.addAnimation('moving',moveBen);
   dig = actor.addAnimation('digging',digBen);
   dig.life = 30;

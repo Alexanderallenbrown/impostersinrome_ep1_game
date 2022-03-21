@@ -84,7 +84,7 @@ function setup() {
   moveBen = loadSpriteSheet('assets/Ben/ben_Walk.png',40,40,6);
   moveAlex = loadSpriteSheet('assets/Alex/alex_Walk.png',40,40,7);
 
-  digBen = loadSpriteSheet('assets/Ben/ben_Dig.png',40,40,5);
+  digBen = loadSpriteSheet('assets/Ben/Ben_Dig.png',40,40,5);
   digBen.life = 30;
   digBen.looping = true;
   digBen.frameDelay = 8;

@@ -8,6 +8,7 @@ var rocco;
 //global variables for animations of ACTOR
 let moveBen,digBen,standBen
 let moveAlex,digAlex,standAlex
+var framenum=0;
 
 //the scene is twice the size of the canvas
 var SCENE_W = 800;
@@ -75,25 +76,26 @@ function setup() {
 
   //create Ben's pre-game
   alex = createSprite(SCENE_W*.8,SCENE_H/2,32,32);
-  alexwave =  loadSpriteSheet('assets/Alex/alex_Wave.png',128,128,8);
+  alexwave =  loadSpriteSheet('assets/Alex/alex_Wave.png',160,160,11);
   alex.wave = alex.addAnimation('normal',alexwave);
   alex.wave.looping = true;
   alex.wave.frameDelay = 8;
 
-  moveBen = loadSpriteSheet('assets/Ben/ben_Walk.png',32,32,5);
-  moveAlex = loadSpriteSheet('assets/Alex/alex_Walk.png',32,32,7);
-  digBen = loadSpriteSheet('assets/Ben/ben_Dig.png',32,32,5);
+  moveBen = loadSpriteSheet('assets/Ben/ben_Walk.png',40,40,6);
+  moveAlex = loadSpriteSheet('assets/Alex/alex_Walk.png',40,40,7);
+
+  digBen = loadSpriteSheet('assets/Ben/ben_Dig.png',40,40,5);
   digBen.life = 30;
   digBen.looping = true;
   digBen.frameDelay = 8;
 
-  digAlex = loadSpriteSheet('assets/Alex/alex_Dig.png',32,32,5);
+  digAlex = loadSpriteSheet('assets/Alex/alex_Dig.png',40,40,5);
   digAlex.life = 30;
   digAlex.looping = true;
   digAlex.frameDelay = 8;
 
-  standAlex = loadSpriteSheet('assets/Alex/alex_Stand.png',32,32,1);
-  standBen = loadSpriteSheet('assets/Ben/Ben_Stand.png',32,32,1)
+  standAlex = loadSpriteSheet('assets/Alex/alex_Stand.png',40,40,1);
+  standBen = loadSpriteSheet('assets/Ben/Ben_Stand.png',40,40,1)
 
   ///create the actor sprite
   //create a sprite and add the 3 animations
@@ -227,8 +229,9 @@ function doCharacterSelect(){
 function doGameStarted(){
 
   holdNow = mouseIsPressed;
-  uniqueRelease = !holdNow&&oldHold;
+  uniqueRelease = (framenum>10)&&!holdNow&&oldHold;
   oldHold = holdNow;
+  framenum++;
 
   if(unCoveredTracks.length<4){
     elapsedTime = (millis()-oldTime)/1000.0
@@ -238,7 +241,7 @@ function doGameStarted(){
   
 
   //mouse trailer, the speed is inversely proportional to the mouse distance
-  if(holdNow){
+  if(holdNow&&framenum>10){
     actor.velocity.x = (camera.mouseX-actor.position.x)/60;
     actor.velocity.y = (camera.mouseY-actor.position.y)/60;
   }
@@ -278,6 +281,8 @@ function doGameStarted(){
     }
   }
 
+
+
   else if(holdNow&&(abs(actor.velocity.x)<movethresh)&&(abs(actor.velocity.y)<movethresh)){
     actor.changeAnimation('floating');
     //console.log('floating')
@@ -296,6 +301,11 @@ function doGameStarted(){
       //console.log("time to float")
     }
   }
+
+  if (framenum<10){
+    actor.changeAnimation('floating);')
+  }
+
   camera.zoom=2;
 
 

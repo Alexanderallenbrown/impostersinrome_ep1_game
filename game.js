@@ -1,7 +1,14 @@
 var actor;
+var ben;
+var alex;
 var bg;
 var frame;
 var rocco;
+
+//global variables for animations of ACTOR
+let moveBen,digBen,standBen
+let moveAlex,digAlex,standAlex
+
 //the scene is twice the size of the canvas
 var SCENE_W = 800;
 var SCENE_H = 400;
@@ -13,6 +20,8 @@ let track1;
 let track2;
 let track3;
 let track4;
+
+let alexButton,benButton;
 
 var gameStart = false;
 
@@ -48,31 +57,72 @@ function preload() {
 
 
 function setup() {
+
+  var canvas = createCanvas(SCENE_W, SCENE_H);
+  canvas.parent("sketch-holder");
   ///for sounds: create audio context
 
   // getAudioContext().suspend();
   tracks = [track1,track2,track3,track4];
   numTracks = tracks.length;
 
+  //create Ben's pre-game
+  ben = createSprite(SCENE_W*.2,SCENE_H/2,32,32);
+  benwave =  loadSpriteSheet('assets/Ben/ben_Wave.png',128,128,8);
+  ben.wave = ben.addAnimation('normal',benwave);
+  ben.wave.looping = true;
+  ben.wave.frameDelay = 8;
 
-  var canvas = createCanvas(800, 400);
-  canvas.parent("sketch-holder");
+  //create Ben's pre-game
+  alex = createSprite(SCENE_W*.8,SCENE_H/2,32,32);
+  alexwave =  loadSpriteSheet('assets/Alex/alex_Wave.png',128,128,8);
+  alex.wave = alex.addAnimation('normal',alexwave);
+  alex.wave.looping = true;
+  alex.wave.frameDelay = 8;
+
+  moveBen = loadSpriteSheet('assets/Ben/ben_Walk.png',32,32,5);
+  moveAlex = loadSpriteSheet('assets/Alex/alex_Walk.png',32,32,7);
+  digBen = loadSpriteSheet('assets/Ben/ben_Dig.png',32,32,5);
+  digBen.life = 30;
+  digBen.looping = true;
+  digBen.frameDelay = 8;
+
+  digAlex = loadSpriteSheet('assets/Alex/alex_Dig.png',32,32,5);
+  digAlex.life = 30;
+  digAlex.looping = true;
+  digAlex.frameDelay = 8;
+
+  standAlex = loadSpriteSheet('assets/Alex/alex_Stand.png',32,32,1);
+  standBen = loadSpriteSheet('assets/Ben/Ben_Stand.png',32,32,1)
+
+  ///create the actor sprite
   //create a sprite and add the 3 animations
   actor = createSprite(400, 200, 32, 32);
   actorfeet = createSprite(400,200,32,4);//create 'feet'
 
-  // ben_sheet = loadSpriteSheet('assets/Ben_Dig.png', 40, 40, 3);
-  // ben_walk_animation = loadAnimation(ben_sheet);
-  // ben_dig_animation = loadAnimation(ben_sheet);
-
-  var stand = actor.addAnimation('floating','assets/Ben/Ben_Stand.png');
-  stand.offY = 0;
-
-  move = actor.addAnimation('moving','assets/Ben/Ben_Stand.png','assets/Ben/Ben_Walk_1.png','assets/Ben/Ben_Walk_2.png','assets/Ben/Ben_Walk_3.png','assets/Ben/Ben_Walk_4.png','assets/Ben/Ben_Walk_5.png');
-  dig = actor.addAnimation('digging','assets/Ben/Ben_Stand.png','assets/Ben/Ben_Dig_1.png','assets/Ben/Ben_Dig_2.png','assets/Ben/Ben_Dig_3.png','assets/Ben/Ben_Stand.png');
+  ben.onMousePressed = function(){
+  move = actor.addAnimation('moving',moveBen);
+  dig = actor.addAnimation('digging',digBen);
   dig.life = 30;
   dig.looping = true;
   dig.frameDelay = 8;
+  gameStart = true;
+  ben.remove();
+  alex.remove();
+}
+
+alex.onMousePressed = function(){
+  stand = actor.addAnimation('floating',standAlex);
+  move = actor.addAnimation('moving',moveAlex);
+  dig = actor.addAnimation('digging',digAlex)
+  dig.life = 30;
+  dig.looping = true;
+  dig.frameDelay = 8;
+  gameStart = true;
+  alex.remove();
+  ben.remove();
+}
+
 
   //Rocco
   rocco = createSprite(random(100,SCENE_W-100),random(100,SCENE_H-100),32,32)
@@ -140,16 +190,44 @@ function setup() {
   oldTime = millis();
 }
 
-// function draw() {
-//   background(220);
-// }
 
 
 function draw() {
+  
+
+  if(gameStart){
+    doGameStarted();
+  }
+  else{
+    doCharacterSelect();
+  }
+  
+}
+
+
+function doCharacterSelect(){
+  background(0,0,0);
+  textSize(32);
+  fill(255,255,255);
+  textAlign(CENTER,CENTER);
+  text("Choose Your Fighter",0.5*SCENE_W,0.1*SCENE_H);
+
+  textSize(18);
+  text("Ben",ben.position.x,ben.position.y+18+64);
+  text("Alex",alex.position.x,alex.position.y+18+64);
+
+  drawSprite(ben);
+  drawSprite(alex);
+}
+
+
+
+
+function doGameStarted(){
+
   holdNow = mouseIsPressed;
   uniqueRelease = !holdNow&&oldHold;
   oldHold = holdNow;
-
 
   if(unCoveredTracks.length<4){
     elapsedTime = (millis()-oldTime)/1000.0
@@ -295,8 +373,6 @@ function draw() {
   else{
     text('time: '+elapsedTime.toFixed(2),actor.position.x,actor.position.y-75)
   } 
-  
-  
 }
 
 function checkClodNumber(sprite1,sprite2){

@@ -222,7 +222,12 @@ function doCharacterSelect(){
   drawSprite(ben);
   drawSprite(alex);
 
-  text("You may need to play in Chrome to hear sound",SCENE_W/2,.9*SCENE_H)
+  text("You may need to play in Chrome to hear sound",SCENE_W/2,.75*SCENE_H)
+
+  fill(150,150,150);
+  textSize(12);
+  text('Artwork: Kayla Olson',SCENE_W/2,SCENE_H*.85);
+  text('Programming: Alex Brown',SCENE_W/2,SCENE_H*.85+14);
 }
 
 

@@ -221,6 +221,8 @@ function doCharacterSelect(){
 
   drawSprite(ben);
   drawSprite(alex);
+
+  text("You may need to play in Chrome to hear sound",SCENE_W/2,.9*SCENE_H)
 }
 
 

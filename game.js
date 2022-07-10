@@ -203,6 +203,8 @@ function draw() {
   }
   else{
     doCharacterSelect();
+    if mouseIsPressed(){
+      preload();
   }
   
 }

@@ -38,7 +38,8 @@ var uniqueRelease = false;
 var oldHold = false;
 var holdNow = false;
 
-function preload() {
+
+function soundSetup(){
   soundFormats('mp3','wav');
   console.log("loading sounds")
   errorSound = loadSound('assets/sounds/error.mp3');
@@ -46,9 +47,13 @@ function preload() {
   track2 = loadSound('assets/sounds/WIF/track2.mp3');
   track3 = loadSound('assets/sounds/WIF/track3.mp3');
   track4 = loadSound('assets/sounds/WIF/track4.mp3');
-
   roccosound = loadSound('assets/sounds/dog_bark.wav');
-  console.log("sounds loaded")
+
+}
+
+function preload() {
+  soundSetup()
+  console.log("sounds loaded from preload")
 
 }
 
@@ -204,7 +209,8 @@ function draw() {
   else{
     doCharacterSelect();
     if mouseIsPressed(){
-      preload();
+      soundSetup();
+      console.log("sounds loaded from click")
   }
   
 }

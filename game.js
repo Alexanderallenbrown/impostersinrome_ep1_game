@@ -402,7 +402,9 @@ function doGameStarted(){
   stroke(128); 
   textAlign(CENTER,CENTER)
   if(unCoveredTracks.length>=4){
-    text("You found all the stems! time: "+elapsedTime.toFixed(2),actor.position.x,actor.position.y-75)
+    text("You found all the stems!",actor.position.x,actor.position.y-75)
+    text("time: "+elapsedTime.toFixed(2),actor.position.x,actor.position.y-50)
+
   }
   else{
     text('time: '+elapsedTime.toFixed(2),actor.position.x,actor.position.y-75)

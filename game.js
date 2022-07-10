@@ -441,11 +441,32 @@ function processAudio(sprite1,sprite2){
 
 }
 
+function disable(){
+  document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
+}
+
+function enable(){
+    document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
+}
+
+function disableScroll(){
+  document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
+}
+
+function enableScroll(){
+    document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
+}
 
 function mousePressed(){
   // console.log("audio context: "+str(getAudioContext().state))
   if(!soundsLoaded){
     userStartAudio();
     soundSetup();
+  }
+  if(touches.length<2){
+    disableScroll()
+  }
+  else{
+    enableScroll()
   }
 }

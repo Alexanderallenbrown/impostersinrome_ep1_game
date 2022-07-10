@@ -110,7 +110,7 @@ function setup() {
 
   ///create the actor sprite
   //create a sprite and add the 3 animations
-  actor = createSprite(400, 200, 32, 32);
+  actor = createSprite(WIDTH/2, HEIGHT/2, 32, 32);
   actorfeet = createSprite(400,200,32,4);//create 'feet'
 
   ben.onMousePressed = function(){
@@ -167,7 +167,7 @@ alex.onMousePressed = function(){
   for(var i=0; i<numClods; i++)
   {
     //create a sprite and add the 3 animations
-    var rock = createSprite(random(100, width-100), random(100, height-100));
+    var rock = createSprite(random(25, width-25), random(25, height-25));
     //cycles through rocks 0 1 2
     rock.addAnimation('normal', 'assets/Dirt/dirtclod_ellipse_static.png');
     rock.dirtdig = rock.addAnimation('digging',dirtanim)
@@ -192,7 +192,7 @@ alex.onMousePressed = function(){
   for(var i=0; i<2*numClods; i++)
   {
     //create a sprite and add the 3 animations
-    var flower = createSprite(random(100, width-100), random(100, height-100));
+    var flower = createSprite(random(25, width-25), random(25, height-25));
     floweranim.frameDelay=32
     //cycles through rocks 0 1 2
     flower.flowerwave = flower.addAnimation('normal',floweranim);

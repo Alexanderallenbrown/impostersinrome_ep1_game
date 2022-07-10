@@ -217,6 +217,7 @@ function draw() {
     if (mouseIsPressed){
       soundSetup();
       console.log("sounds loaded from click")
+      oldTime = millis();
   }
   
 }

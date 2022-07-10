@@ -11,7 +11,7 @@ let moveAlex,digAlex,standAlex
 var framenum=0;
 
 //the scene is twice the size of the canvas
-var SCENE_W = 800;
+var SCENE_W = 400;
 var SCENE_H = 400;
 
 var context;
@@ -38,6 +38,8 @@ var uniqueRelease = false;
 var oldHold = false;
 var holdNow = false;
 
+var soundsLoaded = false;
+
 
 function soundSetup(){
   soundFormats('mp3','wav');
@@ -49,13 +51,18 @@ function soundSetup(){
   track4 = loadSound('assets/sounds/WIF/track4.mp3');
   roccosound = loadSound('assets/sounds/dog_bark.wav');
 
+  tracks = [track1,track2,track3,track4];
+  numTracks = tracks.length;
+  soundsLoaded = true;
+  console.log("sounds loaded")
+
 }
 
-function preload() {
-  soundSetup()
-  console.log("sounds loaded from preload")
+// function preload() {
+//   soundSetup()
+//   console.log("sounds loaded from preload")
 
-}
+// }
 
 // function setup() {
 //   createCanvas(400, 400);
@@ -68,9 +75,8 @@ function setup() {
   canvas.parent("sketch-holder");
   ///for sounds: create audio context
 
-  // getAudioContext().suspend();
-  tracks = [track1,track2,track3,track4];
-  numTracks = tracks.length;
+  getAudioContext().suspend();
+  
 
   //create Ben's pre-game
   ben = createSprite(SCENE_W/2 - 64,SCENE_H/2,32,32);
@@ -231,7 +237,8 @@ function doCharacterSelect(){
   drawSprite(ben);
   drawSprite(alex);
 
-  text("You may need to play in Chrome to hear sound",SCENE_W/2,.75*SCENE_H)
+  text("Dig up tracks to build the song!",SCENE_W/2,.75*SCENE_H)
+  text("Click/press to move, release to dig",SCENE_W/2,.75*SCENE_H+24)
 
   fill(150,150,150);
   textSize(12);
@@ -431,4 +438,12 @@ function processAudio(sprite1,sprite2){
   }
 
 }
-  
+
+
+function mousePressed(){
+  // console.log("audio context: "+str(getAudioContext().state))
+  if(!soundsLoaded){
+    userStartAudio();
+    soundSetup();
+  }
+}

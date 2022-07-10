@@ -208,7 +208,7 @@ function draw() {
   }
   else{
     doCharacterSelect();
-    if mouseIsPressed(){
+    if (mouseIsPressed){
       soundSetup();
       console.log("sounds loaded from click")
   }

@@ -110,7 +110,7 @@ function setup() {
 
   ///create the actor sprite
   //create a sprite and add the 3 animations
-  actor = createSprite(WIDTH/2, HEIGHT/2, 32, 32);
+  actor = createSprite(SCENE_W/2, SCENE_H/2, 32, 32);
   actorfeet = createSprite(400,200,32,4);//create 'feet'
 
   ben.onMousePressed = function(){

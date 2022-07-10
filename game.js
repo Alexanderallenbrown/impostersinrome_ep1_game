@@ -441,21 +441,21 @@ function processAudio(sprite1,sprite2){
 
 }
 
-function disable(){
-  document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
-}
+// function disable(){
+//   document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
+// }
 
-function enable(){
-    document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
-}
+// function enable(){
+//     document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
+// }
 
-function disableScroll(){
-  document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
-}
+// function disableScroll(){
+//   document.querySelector('.scrollable').addEventListener('wheel', preventScroll);
+// }
 
-function enableScroll(){
-    document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
-}
+// function enableScroll(){
+//     document.querySelector('.scrollable').removeEventListener('wheel', preventScroll);
+// }
 
 function mousePressed(){
   // console.log("audio context: "+str(getAudioContext().state))
@@ -463,10 +463,10 @@ function mousePressed(){
     userStartAudio();
     soundSetup();
   }
-  if(touches.length<2){
-    disableScroll()
-  }
-  else{
-    enableScroll()
-  }
+  // if(touches.length<2){
+  //   disableScroll()
+  // }
+  // else{
+  //   enableScroll()
+  // }
 }

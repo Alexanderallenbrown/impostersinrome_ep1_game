@@ -214,6 +214,7 @@ function draw() {
   }
   
 }
+}
 
 
 function doCharacterSelect(){

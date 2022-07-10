@@ -68,14 +68,14 @@ function setup() {
   numTracks = tracks.length;
 
   //create Ben's pre-game
-  ben = createSprite(SCENE_W*.2,SCENE_H/2,32,32);
+  ben = createSprite(SCENE_W/2 - 64,SCENE_H/2,32,32);
   benwave =  loadSpriteSheet('assets/Ben/ben_Wave.png',128,128,8);
   ben.wave = ben.addAnimation('normal',benwave);
   ben.wave.looping = true;
   ben.wave.frameDelay = 8;
 
   //create Ben's pre-game
-  alex = createSprite(SCENE_W*.8,SCENE_H/2,32,32);
+  alex = createSprite(SCENE_W/2+64,SCENE_H/2,32,32);
   alexwave =  loadSpriteSheet('assets/Alex/alex_Wave.png',160,160,11);
   alex.wave = alex.addAnimation('normal',alexwave);
   alex.wave.looping = true;

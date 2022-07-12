@@ -121,6 +121,7 @@ function setup() {
   dig.looping = true;
   dig.frameDelay = 8;
   gameStart = true;
+  oldTime = millis();
   ben.remove();
   alex.remove();
 }
@@ -133,6 +134,7 @@ alex.onMousePressed = function(){
   dig.looping = true;
   dig.frameDelay = 8;
   gameStart = true;
+  oldTime = millis();
   alex.remove();
   ben.remove();
 }

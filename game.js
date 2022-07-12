@@ -213,11 +213,12 @@ function draw() {
     doGameStarted();
   }
   else{
+    oldTime = millis();
     doCharacterSelect();
     if (mouseIsPressed){
       soundSetup();
       console.log("sounds loaded from click")
-      oldTime = millis();
+      
   }
   
 }
